@@ -1,0 +1,4 @@
+@use 'tailwindcss';
+@use './styles/styles' as *;
+@source "./**/*.{html,ts,scss}";
+@source "./styles/**/*.{scss,css}";

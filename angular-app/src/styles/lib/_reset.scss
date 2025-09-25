@@ -1,0 +1,19 @@
+/* Minimal reset layering */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+app-root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: rgb(var(--color-bg));
+  color: rgb(var(--color-fg));
+}

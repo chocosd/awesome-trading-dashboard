@@ -2,20 +2,24 @@
   "compilerOptions": {
     "composite": true,
     "declarationMap": true,
-    "emitDeclarationOnly": true,
     "importHelpers": true,
     "isolatedModules": true,
     "lib": ["es2022"],
     "module": "nodenext",
     "moduleResolution": "nodenext",
-    "noEmitOnError": true,
+    "noEmitOnError": false,
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "skipLibCheck": true,
     "strict": true,
+    "declaration": false,
     "target": "es2022",
-    "customConditions": ["@awesome-trading-dashboard/source"]
+    "customConditions": ["@awesome-trading-dashboard/source"],
+    "baseUrl": ".",
+    "paths": {
+      "@awesome-trading-dashboard/trading-api": ["trading-api/src/index.ts"]
+    }
   }
 }
