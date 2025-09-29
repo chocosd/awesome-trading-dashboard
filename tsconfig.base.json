@@ -14,7 +14,7 @@
     "noUnusedLocals": true,
     "skipLibCheck": true,
     "strict": true,
-    "declaration": false,
+    "declaration": true,
     "target": "es2022",
     "customConditions": ["@awesome-trading-dashboard/source"],
     "baseUrl": ".",

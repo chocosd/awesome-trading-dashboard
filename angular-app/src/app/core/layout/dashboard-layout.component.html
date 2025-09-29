@@ -1,0 +1,54 @@
+<div class="layout">
+  <aside class="primary-nav">
+    <nav>
+      @for (item of nav; track item.path) {
+      <a
+        [routerLink]="item.path"
+        routerLinkActive="active"
+        [attr.title]="item.label"
+        class="nav-icon"
+      >
+        <span class="sr-only">{{ item.label }}</span>
+        <lucide-icon [img]="item.icon"></lucide-icon>
+      </a>
+      }
+    </nav>
+  </aside>
+  @for (item of secondaryNav[activeRoute()]; track item.path) {
+  <aside class="secondary-nav">
+    <nav>
+      @for (item of secondaryNav[activeRoute()]; track item.path) {
+      <a
+        [routerLink]="'/' + item.path"
+        routerLinkActive="active"
+        [attr.title]="item.label"
+        class="secondary-nav-item"
+      >
+        <lucide-icon [img]="item.icon"></lucide-icon>
+        <span>{{ item.label }}</span>
+      </a>
+      }
+    </nav>
+    <!-- Will render context-aware secondary menu based on route -->
+  </aside>
+  } @empty {
+  <aside class="secondary-nav">
+    <nav>
+      <div class="nav-icon">No secondary nav</div>
+    </nav>
+  </aside>
+  }
+
+  <header class="topbar">
+    <div class="logo">Awesome Trading</div>
+    <div class="spacer"></div>
+    <button class="alerts" aria-label="Alerts">
+      <lucide-icon [img]="Bell" />
+    </button>
+    <lucide-icon [img]="User" class="avatar" />
+  </header>
+
+  <main class="content">
+    <router-outlet />
+  </main>
+</div>

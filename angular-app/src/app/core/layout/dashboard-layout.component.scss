@@ -1,0 +1,87 @@
+.layout {
+  display: grid;
+  grid-template-columns: 64px 240px 1fr;
+  grid-template-rows: 56px 1fr;
+  grid-template-areas:
+    'primary-nav topbar topbar'
+    'primary-nav secondary-nav content';
+  height: 100dvh;
+}
+
+.primary-nav {
+  grid-area: primary-nav;
+  border-inline-end: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 8px;
+}
+
+.secondary-nav {
+  grid-area: secondary-nav;
+  border-inline-end: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 12px;
+}
+
+.secondary-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.secondary-nav-item.active,
+.secondary-nav-item:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.topbar {
+  grid-area: topbar;
+  display: flex;
+  align-items: center;
+  padding-inline: 16px;
+  border-block-end: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.topbar .spacer {
+  flex: 1 1 auto;
+}
+.topbar .avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  margin-inline-start: 12px;
+}
+
+.content {
+  grid-area: content;
+  padding: 16px;
+}
+
+.nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  margin-block: 6px;
+}
+
+.nav-icon.active,
+.nav-icon:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  background: currentColor;
+  border-radius: 4px;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}

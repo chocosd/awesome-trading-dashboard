@@ -11,7 +11,16 @@ export default {
         stringifyContentPathRegex: '\\.(html|svg)$',
       },
     ],
+    '^.+\\.tsx?$': ['ts-jest', { useESM: true }],
   },
+  globals: {
+    'ts-jest': {
+      tsconfig: '<rootDir>/libs/angular-app/tsconfig.spec.json',
+      useESM: true,
+    },
+  },
+  extensionsToTreatAsEsm: ['.ts'],
+  moduleFileExtensions: ['ts', 'js', 'json'],
   transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',

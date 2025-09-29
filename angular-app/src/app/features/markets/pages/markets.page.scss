@@ -1,0 +1,26 @@
+.markets .header {
+  display: flex;
+  align-items: center;
+  margin-block-end: 12px;
+}
+.markets .grid {
+  display: grid;
+  grid-template-columns: 300px 1fr 360px;
+  grid-template-rows: 480px 1fr;
+  gap: 12px;
+}
+.markets .watchlist {
+  background: rgba(0, 0, 0, 0.03);
+  padding: 8px;
+}
+.markets .chart {
+  background: rgba(0, 0, 0, 0.03);
+}
+.markets .right-panel {
+  background: rgba(0, 0, 0, 0.03);
+}
+.markets .trades {
+  grid-column: 1 / -1;
+  background: rgba(0, 0, 0, 0.03);
+  padding: 8px;
+}
