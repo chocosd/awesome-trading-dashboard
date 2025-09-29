@@ -4,7 +4,10 @@
     "allowJs": true,
     "outDir": "../dist/out-tsc",
     "sourceMap": false,
-    "module": "commonjs",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "target": "es2022",
+    "noEmit": true,
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
@@ -19,6 +22,7 @@
     "src/**/*.spec.js",
     "src/**/*.test.ts",
     "src/**/*.test.js",
-    "src/**/*.d.ts"
+    "src/**/*.d.ts",
+    "src/**/*.ts"
   ]
 }

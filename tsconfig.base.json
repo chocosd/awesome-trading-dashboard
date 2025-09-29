@@ -16,6 +16,9 @@
     "strict": true,
     "declaration": true,
     "target": "es2022",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "customConditions": ["@awesome-trading-dashboard/source"],
     "baseUrl": ".",
     "paths": {

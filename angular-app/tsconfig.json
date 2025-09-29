@@ -6,6 +6,7 @@
     "moduleResolution": "bundler",
     "module": "preserve",
     "baseUrl": "./",
+    "noEmit": true,
     "lib": ["es2022", "dom"]
   },
   "angularCompilerOptions": {
@@ -15,8 +16,8 @@
     "typeCheckHostBindings": true,
     "strictTemplates": true
   },
-  "files": [],
-  "include": [],
+  "files": ["src/main.ts"],
+  "include": ["src/**/*.ts", "src/main.ts"],
   "references": [
     {
       "path": "./tsconfig.app.json"
