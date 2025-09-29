@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { ArrowDown, ArrowUp, LucideAngularModule } from 'lucide-angular';
+import { WatchlistComponent } from '../components/watchlist/watchlist.component';
 import { MarketsMockService } from '../services/markets-mock.service';
-
 @Component({
   standalone: true,
   selector: 'app-markets-page',
-  imports: [CommonModule, LucideAngularModule],
+  imports: [CommonModule, LucideAngularModule, WatchlistComponent],
   templateUrl: './markets.page.html',
   styleUrl: './markets.page.scss',
 })

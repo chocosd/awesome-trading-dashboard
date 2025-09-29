@@ -12,6 +12,51 @@
 .markets .watchlist {
   background: rgba(0, 0, 0, 0.03);
   padding: 8px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.markets .watchlist ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.markets .watchlist li {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+}
+.markets .watchlist li:last-child {
+  border-bottom: none;
+}
+.markets .watchlist li:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+.markets .watchlist li.active {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.markets .watchlist .symbol {
+  font-weight: 600;
+}
+.markets .watchlist .name {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 12px;
+}
+.markets .watchlist .quote {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.markets .watchlist .quote.up {
+  color: rgb(34, 197, 94);
+}
+.markets .watchlist .quote.down {
+  color: rgb(239, 68, 68);
 }
 .markets .chart {
   background: rgba(0, 0, 0, 0.03);
