@@ -1,0 +1,27 @@
+<ul class="watchlist">
+  @for (item of items(); track item.symbol) {
+  <li
+    (click)="onSelect(item.symbol)"
+    tabindex="0"
+    (keyup.enter)="onSelect(item.symbol)"
+    (keyup.space)="onSelect(item.symbol)"
+    [class.active]="item.symbol === selected()"
+  >
+    <div class="indicator">
+      <lucide-icon [img]="item.quote.change >= 0 ? arrowUp : arrowDown" />
+    </div>
+    <div class="info">
+      <div class="symbol">{{ item.symbol }}</div>
+      <div class="name">{{ item.name }}</div>
+    </div>
+    <div class="quote" [class.up]="item.quote.change >= 0" [class.down]="item.quote.change < 0">
+      <span class="last">{{ item.quote.last | number : '1.2-2' }}</span>
+      <span class="change"
+        >{{ item.quote.change | number : '1.2-2' }} ({{ item.quote.changePercent | number : '1.2-2' }}%)</span
+      >
+    </div>
+  </li>
+  }
+</ul>
+
+

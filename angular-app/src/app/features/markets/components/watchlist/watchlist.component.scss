@@ -1,0 +1,51 @@
+.watchlist {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.watchlist li {
+  display: grid;
+  grid-template-columns: 24px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+}
+.watchlist li:last-child {
+  border-bottom: none;
+}
+.watchlist li:hover {
+  background: rgba(30, 64, 175, 0.06);
+}
+.watchlist li.active {
+  background: rgba(30, 64, 175, 0.12);
+}
+
+.indicator {
+  color: currentColor;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.info .symbol {
+  font-weight: 700;
+  line-height: 1.1;
+}
+.info .name {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 12px;
+  line-height: 1.1;
+}
+.quote {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+.quote.up {
+  color: rgb(34, 197, 94);
+}
+.quote.down {
+  color: rgb(239, 68, 68);
+}
