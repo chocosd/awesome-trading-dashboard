@@ -3,9 +3,54 @@
     <input type="search" placeholder="Search markets..." />
   </header>
   <div class="grid">
-    <div class="watchlist">Watchlist</div>
-    <div class="chart">Chart</div>
-    <aside class="right-panel">Right Panel</aside>
-    <div class="trades">Past Trades</div>
+    <div class="watchlist">
+      <ul>
+        @for (item of watchlist(); track item.symbol) {
+        <li
+          (click)="select(item.symbol)"
+          tabindex="0"
+          (keyup)="select(item.symbol)"
+          (keydown)="select(item.symbol)"
+          [class.active]="item.symbol === selected()"
+        >
+          <div class="symbol">{{ item.symbol }}</div>
+          <div class="name">{{ item.name }}</div>
+          <div
+            class="quote"
+            [class.up]="item.quote.change >= 0"
+            [class.down]="item.quote.change < 0"
+          >
+            <lucide-icon [img]="arrowUp" />
+            <span>{{ item.quote.last | number : '1.2-2' }}</span>
+            <span
+              >{{ item.quote.change | number : '1.2-2' }} ({{
+              item.quote.changePercent | number : '1.2-2' }}%)</span
+            >
+          </div>
+        </li>
+        }
+      </ul>
+    </div>
+    <div class="chart">
+      @if (!selected()) {
+      <div>Select a symbol</div>
+      } @else {
+      <h3>{{ selected() }} — Last 7 days</h3>
+      <pre>{{ series() | json }}</pre>
+      }
+    </div>
+    <aside class="right-panel">
+      @if (!selected()) {
+      <div>Select a symbol</div>
+      } @else {
+      <h3>Trade {{ selected() }}</h3>
+      <button class="btn btn-primary">Mock Buy</button>
+      <button class="btn btn-outline">Mock Sell</button>
+      }
+    </aside>
+    <div class="trades">
+      <h3>Past Trades</h3>
+      <pre>{{ (series() | json) }}</pre>
+    </div>
   </div>
 </section>

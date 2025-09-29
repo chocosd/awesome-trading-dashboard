@@ -1,11 +1,28 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
+import { ArrowDown, ArrowUp, LucideAngularModule } from 'lucide-angular';
+import { MarketsMockService } from '../services/markets-mock.service';
 
 @Component({
   standalone: true,
   selector: 'app-markets-page',
-  imports: [CommonModule],
+  imports: [CommonModule, LucideAngularModule],
   templateUrl: './markets.page.html',
   styleUrl: './markets.page.scss',
 })
-export class MarketsPage {}
+export class MarketsPage {
+  private marketsMockService = inject(MarketsMockService);
+
+  protected arrowDown = ArrowDown;
+  protected arrowUp = ArrowUp;
+
+  protected watchlist = this.marketsMockService.watchlist;
+  protected selected = this.marketsMockService.selectedSymbol;
+  protected series = computed(() =>
+    this.selected() ? this.marketsMockService.candlesFor(this.selected()) : []
+  );
+
+  protected select(symbol: string) {
+    this.marketsMockService.select(symbol);
+  }
+}
