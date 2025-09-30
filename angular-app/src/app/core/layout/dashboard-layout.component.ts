@@ -8,6 +8,7 @@ import {
   Settings,
   User,
 } from 'lucide-angular';
+import { MarketsStore } from '../../features/markets/store/markets.store';
 import { PRIMARY_NAV, SECONDARY_NAV } from '../consts/nav.const';
 import { RouterSignalsService } from '../services/router.service';
 import { NavItem } from '../types/nav-item.interface';
@@ -26,21 +27,13 @@ export class DashboardLayoutComponent {
   public activeRoute = computed(() => {
     const url = this.routerSignalsService.currentUrl();
 
-    console.log(url);
-
-    const activePath = url.split('/').reduce((prev, segment) => {
+    return url.split('/').reduce((prev, segment) => {
       const item = this.nav
         .find((item) => item.path === `/${segment}`)
         ?.path.replace('/', '');
 
-      console.log('the found item', item);
-
       return item ?? prev;
     }, '');
-
-    console.log(activePath);
-
-    return activePath;
   });
 
   public secondaryNav: Record<string, NavItem[]> = SECONDARY_NAV;
@@ -49,4 +42,7 @@ export class DashboardLayoutComponent {
   protected readonly Menu = Menu;
   protected readonly Settings = Settings;
   protected readonly User = User;
+
+  protected readonly store = inject(MarketsStore);
+  public cash = computed(() => this.store.cash());
 }
