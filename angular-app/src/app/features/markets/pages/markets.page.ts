@@ -1,12 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { ArrowDown, ArrowUp, LucideAngularModule } from 'lucide-angular';
+import { TradePanelComponent } from '../components/trade-panel/trade-panel.component';
 import { WatchlistComponent } from '../components/watchlist/watchlist.component';
 import { MarketsMockService } from '../services/markets-mock.service';
 @Component({
   standalone: true,
   selector: 'app-markets-page',
-  imports: [CommonModule, LucideAngularModule, WatchlistComponent],
+  imports: [
+    CommonModule,
+    LucideAngularModule,
+    WatchlistComponent,
+    TradePanelComponent,
+  ],
   templateUrl: './markets.page.html',
   styleUrl: './markets.page.scss',
 })
@@ -21,6 +27,19 @@ export class MarketsPage {
   protected series = computed(() =>
     this.selected() ? this.marketsMockService.candlesFor(this.selected()) : []
   );
+
+  protected quote = computed(() => {
+    const selected = this.selected();
+
+    if (!selected) {
+      return null;
+    }
+
+    return (
+      this.marketsMockService.watchlist().find((w) => w.symbol === selected)
+        ?.quote || null
+    );
+  });
 
   protected select(symbol: string) {
     this.marketsMockService.select(symbol);

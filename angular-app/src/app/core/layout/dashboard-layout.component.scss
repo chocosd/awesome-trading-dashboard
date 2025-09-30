@@ -40,6 +40,14 @@
   padding-inline: 16px;
   border-block-end: 1px solid rgba(0, 0, 0, 0.08);
 }
+.topbar .funds {
+  background: rgba(30, 64, 175, 0.08);
+  color: rgb(30, 64, 175);
+  padding: 6px 10px;
+  border-radius: 9999px;
+  margin-inline-end: 12px;
+  font-weight: 700;
+}
 
 .topbar .spacer {
   flex: 1 1 auto;

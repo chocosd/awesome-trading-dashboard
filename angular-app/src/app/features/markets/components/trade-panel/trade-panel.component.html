@@ -1,0 +1,116 @@
+@if (!selected()) {
+<div>Select a symbol</div>
+} @else {
+<div class="trade-panel">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <header class="panel-head">
+      <h3 class="title">Trade {{ selected() }}</h3>
+      <div
+        class="price"
+        [class.up]="(quote()?.change ?? 0) >= 0"
+        [class.down]="(quote()?.change ?? 0) < 0"
+      >
+        <lucide-icon [img]="(quote()?.change ?? 0) >= 0 ? iconUp : iconDown" />
+        <span class="label">Last</span>
+        <span class="value">{{ quote()?.last | number : '1.2-2' }}</span>
+      </div>
+    </header>
+
+    <div class="owned">
+      <span class="label">Current quantity</span>
+      <span class="value">{{ owned() }}</span>
+    </div>
+
+    <section class="actions">
+      <button
+        type="button"
+        class="button action buy"
+        [class.active]="isBuyActive()"
+        (click)="onSideChange('BUY')"
+      >
+        <lucide-icon [img]="ShoppingCart" />
+        Buy
+      </button>
+      <button
+        type="button"
+        class="button action sell"
+        [class.active]="isSellActive()"
+        (click)="onSideChange('SELL')"
+        [disabled]="!canSell()"
+      >
+        <lucide-icon [img]="Wallet" />
+        Sell
+      </button>
+    </section>
+
+    <div class="controls">
+      <label>
+        Quantity
+        <input
+          type="number"
+          min="1"
+          step="1"
+          [value]="quantity()"
+          (input)="onQuantityChange($event.target.value)"
+        />
+      </label>
+
+      <label>
+        Order Type
+        <select [value]="priceType()" (change)="onPriceTypeChange($event)">
+          <option value="MARKET">Market</option>
+          <option value="LIMIT">Limit</option>
+        </select>
+      </label>
+
+      @if (isLimitPriceEnabled()) {
+      <label>
+        Limit Price
+        <input
+          type="number"
+          step="0.01"
+          [value]="limitPrice()"
+          (input)="onLimitPriceChange($event)"
+        />
+      </label>
+      }
+
+      <label>
+        Time in Force
+        <select
+          [value]="tif()"
+          (change)="onTimeInForceChange($event)"
+          [disabled]="!isLimitPriceEnabled()"
+        >
+          <option value="DAY">DAY</option>
+          <option value="GTC">GTC</option>
+        </select>
+      </label>
+    </div>
+
+    <footer class="panel-foot">
+      <div class="est">
+        <div class="label">Est. {{ isBuyActive() ? 'Cost' : 'Proceeds' }}</div>
+        <div
+          class="value"
+          [class.buy]="isBuyActive()"
+          [class.sell]="isSellActive()"
+        >
+          {{ net() | currency }}
+        </div>
+        <div class="breakdown">
+          <div>Amount: {{ estimatedCost() | currency }}</div>
+          <div>Fees: {{ fee() | currency }}</div>
+        </div>
+      </div>
+      <button
+        class="button button-primary full"
+        type="submit"
+        [disabled]="isDisabled()"
+      >
+        Submit Order
+      </button>
+    </footer>
+  </form>
+</div>
+}

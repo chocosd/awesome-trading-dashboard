@@ -15,13 +15,7 @@
       }
     </div>
     <aside class="right-panel">
-      @if (!selected()) {
-      <div>Select a symbol</div>
-      } @else {
-      <h3>Trade {{ selected() }}</h3>
-      <button class="btn btn-primary">Mock Buy</button>
-      <button class="btn btn-outline">Mock Sell</button>
-      }
+      <app-trade-panel [selected]="selected()" [quote]="quote()" />
     </aside>
     <div class="trades">
       <h3>Past Trades</h3>
