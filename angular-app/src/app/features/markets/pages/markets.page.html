@@ -7,12 +7,7 @@
       <app-watchlist (selectSymbol)="select($event)" />
     </div>
     <div class="chart">
-      @if (!selected()) {
-      <div>Select a symbol</div>
-      } @else {
-      <h3>{{ selected() }} — Last 7 days</h3>
-      <pre>{{ series() | json }}</pre>
-      }
+      <app-market-chart [marketData]="series()" [portfolio]="portfolio()" />
     </div>
     <aside class="right-panel">
       <app-trade-panel [selected]="selected()" [quote]="quote()" />

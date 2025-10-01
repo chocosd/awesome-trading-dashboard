@@ -1,0 +1,28 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  gap: 12px;
+}
+
+.chart-container {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  position: relative;
+}
+
+.buttons-container {
+  display: flex;
+  gap: 16px;
+  padding: 12px;
+
+  & > .button {
+    cursor: pointer;
+
+    &.active {
+      background-color: rgba(var(--tw-color-primary), 0.08);
+    }
+  }
+}
