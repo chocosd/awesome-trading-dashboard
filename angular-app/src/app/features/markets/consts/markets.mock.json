@@ -116,20 +116,27 @@
   "pastTrades": [
     {
       "id": "t1",
-      "symbol": "AAPL",
+      "symbol": "GOOG",
       "side": "BUY",
       "qty": 10,
-      "price": 220.12,
-      "timestamp": "2025-09-10T15:22:00Z",
-      "pnl": 45.8
+      "price": 178.0,
+      "timestamp": "2025-09-17T14:00:00Z"
     },
     {
       "id": "t2",
       "symbol": "GOOG",
       "side": "SELL",
       "qty": 5,
-      "price": 176.5,
-      "timestamp": "2025-09-12T10:05:00Z"
+      "price": 181.5,
+      "timestamp": "2025-09-20T15:00:00Z"
+    },
+    {
+      "id": "t3",
+      "symbol": "GOOG",
+      "side": "BUY",
+      "qty": 4,
+      "price": 179.2,
+      "timestamp": "2025-09-22T13:30:00Z"
     }
   ]
 }
