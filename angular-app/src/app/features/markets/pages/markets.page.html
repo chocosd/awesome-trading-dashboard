@@ -1,20 +1,21 @@
 <section class="markets">
-  <header class="header">
-    <input type="search" placeholder="Search markets..." />
-  </header>
   <div class="grid">
     <div class="watchlist">
       <app-watchlist (selectSymbol)="select($event)" />
     </div>
     <div class="chart">
-      <app-market-chart [marketData]="series()" [portfolio]="portfolio()" />
+      <app-market-chart
+        [marketData]="series()"
+        [portfolio]="portfolio()"
+        [selected]="selected()"
+      />
     </div>
     <aside class="right-panel">
       <app-trade-panel [selected]="selected()" [quote]="quote()" />
     </aside>
     <div class="trades">
       <h3>Past Trades</h3>
-      <pre>{{ (series() | json) }}</pre>
+      <app-table [data]="trades()" [config]="tradesTable" />
     </div>
   </div>
 </section>

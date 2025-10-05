@@ -116,13 +116,9 @@ export class TradePanelComponent {
   protected isSellActive = computed(() => this.side() === 'SELL');
   protected isLimitPriceEnabled = computed(() => this.priceType() === 'LIMIT');
 
-  protected isDisabled = computed(() => {
-    if (this.isBuyActive()) {
-      return this.isBuyDisabled();
-    }
-
-    return this.isSellDisabled();
-  });
+  protected isDisabled = computed(() =>
+    this.isBuyActive() ? this.isBuyDisabled() : this.isSellDisabled()
+  );
 
   private isBuyDisabled = computed(
     () => this.isBuyActive() && this.net() > this.availableCash()

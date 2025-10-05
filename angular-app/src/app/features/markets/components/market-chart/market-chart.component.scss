@@ -6,6 +6,19 @@
   gap: 12px;
 }
 
+.chart-header {
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  .title {
+    font-size: 18px;
+    font-weight: 700;
+  }
+}
+
 .chart-container {
   height: 100%;
   width: 100%;
@@ -16,13 +29,13 @@
 .buttons-container {
   display: flex;
   gap: 16px;
-  padding: 12px;
 
   & > .button {
     cursor: pointer;
 
     &.active {
-      background-color: rgba(var(--tw-color-primary), 0.08);
+      background-color: rgba(var(--tw-color-primary));
+      color: white;
     }
   }
 }

@@ -1,13 +1,19 @@
+<section class="chart-header">
+  <div class="date-range">
+    <h3 class="title">
+      {{ dateRangeLabel() }}
+    </h3>
+  </div>
+  <div class="buttons-container">
+    @for (interval of intervals; track interval) {
+    <button
+      class="button"
+      [class.active]="interval === activeInterval()"
+      (click)="setChartInterval(interval)"
+    >
+      {{ interval }}
+    </button>
+    }
+  </div>
+</section>
 <div #container class="chart-container"></div>
-
-<div class="buttons-container">
-  @for (interval of intervals; track interval) {
-  <button
-    class="button"
-    [class.active]="interval === activeInterval()"
-    (click)="setChartInterval(interval)"
-  >
-    {{ interval }}
-  </button>
-  }
-</div>
