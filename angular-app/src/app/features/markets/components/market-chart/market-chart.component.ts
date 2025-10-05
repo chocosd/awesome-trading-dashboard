@@ -14,7 +14,6 @@ import {
 import {
   ColorType,
   createChart,
-  // 👇 v5 markers plugin + types
   createSeriesMarkers,
   IChartApi,
   ISeriesApi,
@@ -47,38 +46,44 @@ export type LineDataMap = Map<
   styleUrls: ['./market-chart.component.scss'],
 })
 export class MarketChartComponent implements OnDestroy {
-  // Inputs
   public marketData = input<Candle[]>([]);
   public portfolio = input<PortfolioTrade[]>([]);
+  public selected = input<string | null>(null);
 
-  // Derived line data by interval
+  protected container = viewChild<ElementRef<HTMLDivElement>>('container');
   protected lineDataMap = computed<LineDataMap>(() =>
     transformCandlesToLineData(this.marketData())
   );
 
-  // DOM + chart state
-  protected container = viewChild<ElementRef<HTMLDivElement>>('container');
-  private chart = signal<IChartApi | null>(null);
-  private lineSeries = signal<ISeriesApi<'Line'> | null>(null);
-  private markersPlugin = signal<ISeriesMarkersPluginApi<UTCTimestamp> | null>(
-    null
-  );
-  private resizeObserver: ResizeObserver | null = null;
+  protected activeInterval = signal<'1D' | '1W' | '1M' | '1Y'>('1D');
+  protected activeTrades = signal<PortfolioTrade[]>([]);
+  protected dateRangeLabel = computed(() => {
+    const interval = this.activeInterval();
+    const data = this.lineDataMap()?.get(interval) ?? [];
 
-  // Reactive state
-  public activeInterval = signal<'1D' | '1W' | '1M' | '1Y'>('1D');
-  public activeTrades = signal<PortfolioTrade[]>([]);
+    if (!data.length) {
+      return '';
+    }
 
-  // Config
-  readonly intervals: Array<'1D' | '1W' | '1M' | '1Y'> = [
+    return this.formatDateLabel(data, interval);
+  });
+
+  protected readonly intervals: Array<'1D' | '1W' | '1M' | '1Y'> = [
     '1D',
     '1W',
     '1M',
     '1Y',
   ];
-  private readonly injector = inject(Injector);
 
-  private intervalColors: Record<'1D' | '1W' | '1M' | '1Y', string> = {
+  private chart = signal<IChartApi | null>(null);
+  private lineSeries = signal<ISeriesApi<'Line'> | null>(null);
+  private markersPlugin = signal<ISeriesMarkersPluginApi<UTCTimestamp> | null>(
+    null
+  );
+
+  private resizeObserver: ResizeObserver | null = null;
+  private readonly injector = inject(Injector);
+  private readonly intervalColors: Record<'1D' | '1W' | '1M' | '1Y', string> = {
     '1D': '#2962FF',
     '1W': 'rgb(225, 87, 90)',
     '1M': 'rgb(242, 142, 44)',
@@ -166,6 +171,9 @@ export class MarketChartComponent implements OnDestroy {
         const data = this.lineDataMap()?.get(interval) ?? [];
         const trades = this.activeTrades();
 
+        console.log(data);
+        console.log(trades);
+
         if (!plugin || !series) {
           return;
         }
@@ -201,7 +209,7 @@ export class MarketChartComponent implements OnDestroy {
   }
 
   private updateActiveTrades(data: LineData<UTCTimestamp>[]) {
-    const trades = this.portfolio();
+    const trades = this.portfolio().filter((t) => t.symbol === this.selected());
     if (!trades.length || !data.length) {
       this.activeTrades.set([]);
       return;
@@ -232,5 +240,31 @@ export class MarketChartComponent implements OnDestroy {
     }
     this.lineSeries.set(null);
     this.markersPlugin.set(null);
+  }
+
+  private formatDateLabel(
+    data: LineData<UTCTimestamp>[],
+    interval: '1D' | '1W' | '1M' | '1Y'
+  ) {
+    const start = new Date((data[0].time as number) * 1000);
+    const end = new Date((data[data.length - 1].time as number) * 1000);
+
+    const format = (date: Date) =>
+      date.toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      });
+
+    switch (interval) {
+      case '1D':
+        return format(end);
+      case '1W':
+      case '1M':
+      case '1Y':
+        return `${format(start)} - ${format(end)}`;
+      default:
+        return '';
+    }
   }
 }

@@ -1,0 +1,54 @@
+<div class="table-wrapper">
+  <table class="app-table">
+    <thead>
+      <tr>
+        @for (col of config().rows; track col.key) {
+        <th [class]="col.styles?.header">{{ col.label }}</th>
+        } @if (config().actions?.length) {
+        <th class="actions-col"></th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for (row of computedRows(); track $index) {
+      <tr>
+        @for (col of config().rows; track col.key) {
+        <td [class]="col.styles?.cell">
+          @switch (col.type) { @case (ColumnType.Indicator) {
+          <span class="lozenge">
+            {{ row[col.key] }}
+          </span>
+          } @case (ColumnType.Time) {
+          <span>{{ $any(row[col.key]) | date : 'medium' }}</span>
+          } @case (ColumnType.Currency) {
+          <span
+            [class.positive]="row[col.key + '__positive']"
+            [class.negative]="row[col.key + '__negative']"
+          >
+            {{ $any(row[col.key]) | currency }}
+          </span>
+          } @case (ColumnType.Number) {
+          <span
+            [class.positive]="row[col.key + '__positive']"
+            [class.negative]="row[col.key + '__negative']"
+          >
+            {{ $any(row[col.key]) | number : '1.2-2' }}
+          </span>
+          } @default {
+          <span>{{ row[col.key] }}</span>
+          } }
+        </td>
+        } @if (config().actions?.length) {
+        <td class="actions-col">
+          @for (action of config().actions; track action.label) {
+          <button class="button button-outline" (click)="action.onClick(row)">
+            {{ action.label }}
+          </button>
+          }
+        </td>
+        }
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

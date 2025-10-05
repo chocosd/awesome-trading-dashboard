@@ -11,9 +11,11 @@ export function transformCandlesToLineData(
 ): Map<'1D' | '1W' | '1M' | '1Y', LineData<UTCTimestamp>[]> {
   const map = new Map<'1D' | '1W' | '1M' | '1Y', LineData<UTCTimestamp>[]>();
 
-  const dayData: LineData<UTCTimestamp>[] = candles.map((c) => ({
-    time: Math.floor(new Date(c[Trades.Time]).getTime() / 1000) as UTCTimestamp,
-    value: c[Trades.Close],
+  const dayData: LineData<UTCTimestamp>[] = candles.map((candle) => ({
+    time: Math.floor(
+      new Date(candle[Trades.Time]).getTime() / 1000
+    ) as UTCTimestamp,
+    value: candle[Trades.Close],
   }));
 
   map.set('1D', dayData);
@@ -53,11 +55,14 @@ function groupByInterval(
 }
 
 function getWeekNumber(date: Date): number {
-  const d = new Date(
+  const formattedDate = new Date(
     Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
   );
-  const dayNum = d.getUTCDay() || 7;
-  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
-  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-  return Math.ceil(((+d - +yearStart) / 86400000 + 1) / 7);
+  const dayNum = formattedDate.getUTCDay() || 7;
+
+  formattedDate.setUTCDate(formattedDate.getUTCDate() + 4 - dayNum);
+
+  const yearStart = new Date(Date.UTC(formattedDate.getUTCFullYear(), 0, 1));
+
+  return Math.ceil(((+formattedDate - +yearStart) / 86400000 + 1) / 7);
 }

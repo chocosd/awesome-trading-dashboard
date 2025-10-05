@@ -12,7 +12,7 @@ export class MarketsMockService {
   public selectedSymbol = signal<string | null>(
     data.watchlist[0]?.symbol ?? null
   );
-  public pastTrades = signal<PastTrade[]>(data.pastTrades as PastTrade[]);
+  public tradeHistory = signal<PastTrade[]>(data.tradeHistory as PastTrade[]);
 
   candlesFor(symbol: string | null): Candle[] {
     if (!symbol) {
